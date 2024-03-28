@@ -8,12 +8,16 @@ function App () {
   const addName = (e) => setNewName(e.target.value)
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (newName.trim() === '') return
+    if (checkIfNameExists(newName.trim())) return alert(`${newName} is already added to the phonebook`)
     const newPerson = {
-      name: newName
+      name: newName.trim()
     }
     setPersons(persons.concat(newPerson))
     setNewName('')
   }
+  const checkIfNameExists = (name) => persons.some(p => p.name.toLowerCase() === name.toLowerCase())
+
   return (
     <div>
       <h2>Phonebook</h2>
