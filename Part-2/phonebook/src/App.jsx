@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 
 function App () {
   const [persons, setPersons] = useState([
@@ -13,7 +16,6 @@ function App () {
 
   const addName = (e) => setNewName(e.target.value)
   const addNumber = (e) => setNewNumber(e.target.value)
-
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -29,7 +31,6 @@ function App () {
     setNewNumber('')
   }
   const checkIfNameExists = (name) => persons.some(p => p.name.toLowerCase() === name.toLowerCase())
-
   const handleFilter = (e) => {
     setFilter(e.target.value)
   }
@@ -39,24 +40,17 @@ function App () {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={filter} onChange={handleFilter} />
-      </div>
+      <Filter filter={filter} onFilter={handleFilter} />
       <h2>add a new</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name: <input value={newName} onChange={addName} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={addNumber} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        onSubmit={handleSubmit}
+        onNameChange={addName}
+        onNumberChange={addNumber}
+        name={newName}
+        number={newNumber}
+      />
       <h2>Numbers</h2>
-      {personsToShow.length > 0 ? personsToShow.map(person => (<p key={person.name}>{person.name} {person.number}</p>)) : <p>No results found ..</p>
-      }
+      <Persons persons={personsToShow} />
     </div>
   )
 }
