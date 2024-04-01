@@ -21,7 +21,6 @@ function App () {
       });
   }, []);
 
-  console.log(`We have ${persons.length} persons loaded`)
   const addName = (e) => setNewName(e.target.value)
   const addNumber = (e) => setNewNumber(e.target.value)
   const handleSubmit = (e) => {
